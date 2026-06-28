@@ -3,6 +3,7 @@ import { Home, Settings } from "lucide-react";
 import { LightCard } from "@/components/dashboard/LightCard";
 import { CamerasCard } from "@/components/dashboard/CamerasCard";
 import { AcCard } from "@/components/dashboard/AcCard";
+import { KitchenCard } from "@/components/dashboard/KitchenCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,6 +40,7 @@ function Dashboard() {
           <SectionTitle title="Overview" subtitle="Quick controls" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <LightCard name="Living Room" />
+            <KitchenCard name="Little Caesars" />
             <CamerasCard />
           </div>
         </section>
