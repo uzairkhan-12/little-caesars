@@ -52,11 +52,19 @@ function Dashboard() {
             {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
           </p>
         </div>
-        <img
-          src={primewaveLogoAsset.url}
-          alt="PrimeWave AI Solutions"
-          className="h-12 w-auto object-contain"
-        />
+        <div className="flex items-center gap-3">
+          <img
+            src={primewaveLogoAsset.url}
+            alt="PrimeWave AI Solutions"
+            className="h-12 w-auto object-contain"
+          />
+          <div className="text-right leading-tight">
+            <div className="text-sm font-semibold tracking-wide">
+              <span className="font-bold">Prime</span>Wave
+            </div>
+            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">AI Solutions</div>
+          </div>
+        </div>
       </header>
 
       <main className="flex-1 min-h-0 px-6 pb-4 flex flex-col gap-4">
