@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import littleCaesarsLogoAsset from "@/assets/little-caesars-logo.png.asset.json";
 import primewaveLogoAsset from "@/assets/primewave-logo.png.asset.json";
 import { LightCard } from "@/components/dashboard/LightCard";
 import { CamerasCard } from "@/components/dashboard/CamerasCard";
@@ -40,7 +41,12 @@ function Dashboard() {
   return (
     <div className="h-screen overflow-hidden bg-background text-foreground flex flex-col">
       <header className="flex-none px-6 py-5 flex items-center justify-between">
-        <div>
+        <img
+          src={littleCaesarsLogoAsset.url}
+          alt="Little Caesars"
+          className="h-10 w-auto object-contain"
+        />
+        <div className="text-center">
           <h1 className="text-lg font-semibold leading-tight">Kitchen</h1>
           <p className="text-xs text-muted-foreground">
             {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
