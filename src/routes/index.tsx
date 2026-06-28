@@ -66,7 +66,7 @@ function Dashboard() {
       </header>
 
       <main className="flex-1 min-h-0 px-6 pb-4 flex flex-col gap-4">
-        <section className="flex-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 h-[42%]">
+        <section className="flex-none grid grid-cols-2 lg:grid-cols-4 gap-4 h-[48%] lg:h-[42%]">
           {climates.map((climate, idx) =>
             climate ? (
               <AcCard key={climate.entity_id} climate={climate} />
