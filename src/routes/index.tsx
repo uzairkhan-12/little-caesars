@@ -34,6 +34,11 @@ function Dashboard() {
   const { data } = useSuspenseQuery(dashboardQuery);
   const qc = useQueryClient();
 
+  const climates = data.climates.slice(0, 3);
+  while (climates.length < 3) {
+    climates.push(null as any);
+  }
+
   return (
     <div className="h-screen overflow-hidden bg-background text-foreground flex flex-col">
       <header className="flex-none px-6 py-4 flex items-center justify-between">
@@ -60,44 +65,34 @@ function Dashboard() {
         </div>
       </header>
 
-      <main className="flex-1 px-6 pb-4 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
-        <section className="min-h-0 flex flex-col">
-          <SectionTitle title="Lights" />
-          <div className="flex-1 min-h-0 grid grid-cols-1 gap-4">
-            {data.lights.length > 0 ? (
-              data.lights.map((l) => <LightCard key={l.entity_id} light={l} />)
+      <main className="flex-1 min-h-0 px-6 pb-4 flex flex-col gap-4">
+        <section className="flex-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 h-[42%]">
+          {climates.map((climate, idx) =>
+            climate ? (
+              <AcCard key={climate.entity_id} climate={climate} />
             ) : (
-              <EmptyCard label="No lights found" />
-            )}
-          </div>
+              <EmptyAcSlot key={`ac-empty-${idx}`} index={idx + 1} />
+            )
+          )}
+          {data.lights.length > 0 ? (
+            <LightCard key={data.lights[0].entity_id} light={data.lights[0]} />
+          ) : (
+            <EmptyCard label="No light found" />
+          )}
         </section>
 
-        <section className="min-h-0 flex flex-col">
-          <SectionTitle title="Security" />
-          <div className="flex-1 min-h-0">
-            <CamerasCard camera={data.cameras[0] ?? null} />
-          </div>
-        </section>
-
-        <section className="lg:col-span-2 min-h-0 flex flex-col">
-          <SectionTitle title="Climate" />
-          <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-3 gap-4">
-            {data.climates.length > 0 ? (
-              data.climates.map((c) => <AcCard key={c.entity_id} climate={c} />)
-            ) : (
-              <EmptyCard label="No climate devices found" />
-            )}
-          </div>
+        <section className="flex-1 min-h-0">
+          <CamerasCard camera={data.cameras[0] ?? null} />
         </section>
       </main>
     </div>
   );
 }
 
-function SectionTitle({ title }: { title: string }) {
+function EmptyAcSlot({ index }: { index: number }) {
   return (
-    <div className="mb-2 flex items-center justify-between">
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h2>
+    <div className="h-full rounded-2xl border border-dashed border-border flex items-center justify-center text-xs text-muted-foreground">
+      AC {index} not connected
     </div>
   );
 }
