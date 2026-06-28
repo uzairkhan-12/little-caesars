@@ -40,14 +40,14 @@ function Dashboard() {
 
   return (
     <div className="h-screen overflow-hidden bg-background text-foreground flex flex-col">
-      <header className="flex-none px-6 py-5 flex items-center justify-between">
+      <header className="flex-none px-6 py-6 flex items-center justify-between">
         <img
           src={littleCaesarsLogoAsset.url}
           alt="Little Caesars"
-          className="h-10 w-auto object-contain"
+          className="h-12 w-auto object-contain"
         />
         <div className="text-center">
-          <h1 className="text-lg font-semibold leading-tight">Kitchen</h1>
+          <h1 className="text-xl font-semibold leading-tight">Kitchen</h1>
           <p className="text-xs text-muted-foreground">
             {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
           </p>
@@ -55,12 +55,12 @@ function Dashboard() {
         <img
           src={primewaveLogoAsset.url}
           alt="PrimeWave AI Solutions"
-          className="h-10 w-auto object-contain"
+          className="h-12 w-auto object-contain"
         />
       </header>
 
       <main className="flex-1 min-h-0 px-6 pb-4 flex flex-col gap-4">
-        <section className="flex-none grid grid-cols-2 lg:grid-cols-4 gap-4 h-[32%] lg:h-[30%]">
+        <section className="flex-none grid grid-cols-2 lg:grid-cols-4 gap-4 h-[26%] lg:h-[24%]">
           {climates.map((climate, idx) =>
             climate ? (
               <AcCard key={climate.entity_id} climate={climate} />
