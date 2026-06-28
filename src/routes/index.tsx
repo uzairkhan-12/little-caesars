@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import littleCaesarsLogoAsset from "@/assets/little-caesars-logo.png.asset.json";
 import primewaveLogoAsset from "@/assets/primewave-logo.png.asset.json";
 import { LightCard } from "@/components/dashboard/LightCard";
 import { CamerasCard } from "@/components/dashboard/CamerasCard";
