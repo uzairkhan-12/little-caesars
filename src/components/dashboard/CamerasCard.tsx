@@ -35,7 +35,6 @@ export function CamerasCard({ camera }: { camera: CameraEntity | null }) {
         </div>
         <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
           <span className="bg-black/50 px-2 py-1 rounded text-foreground/90">{camera?.name ?? "—"}</span>
-          <span className="bg-black/50 px-2 py-1 rounded text-muted-foreground">{camera?.state ?? "Offline"}</span>
         </div>
       </div>
     </div>
