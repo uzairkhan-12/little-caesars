@@ -3,6 +3,7 @@ import { Home, Settings } from "lucide-react";
 import { LightCard } from "@/components/dashboard/LightCard";
 import { CamerasCard } from "@/components/dashboard/CamerasCard";
 import { AcCard } from "@/components/dashboard/AcCard";
+import { KitchenCard } from "@/components/dashboard/KitchenCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
