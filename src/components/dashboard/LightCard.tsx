@@ -3,10 +3,9 @@ import { Lightbulb, Power } from "lucide-react";
 
 export function LightCard({ name = "Living Room Light" }: { name?: string }) {
   const [on, setOn] = useState(true);
-  const [brightness, setBrightness] = useState(75);
 
   return (
-    <div className="h-full rounded-2xl bg-card p-4 border border-border flex flex-col gap-3">
+    <div className="h-full rounded-2xl bg-card p-4 border border-border flex flex-col gap-4">
       <div className="flex items-start justify-between">
         <div
           className={`size-12 rounded-xl flex items-center justify-center transition-colors ${
@@ -28,18 +27,9 @@ export function LightCard({ name = "Living Room Light" }: { name?: string }) {
       <div className="mt-auto">
         <div className="text-xs text-muted-foreground">Light</div>
         <div className="text-base font-medium">{name}</div>
-        <div className="text-xs text-muted-foreground mt-1">
-          {on ? `On • ${brightness}%` : "Off"}
+        <div className={`text-xs mt-1 font-medium ${on ? "text-active" : "text-muted-foreground"}`}>
+          {on ? "On" : "Off"}
         </div>
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={brightness}
-          disabled={!on}
-          onChange={(e) => setBrightness(Number(e.target.value))}
-          className="w-full mt-3 accent-[var(--active)] disabled:opacity-40"
-        />
       </div>
     </div>
   );

@@ -40,16 +40,18 @@ export function AcCard({
   const isOn = mode !== "off";
   const modeLabel = MODE_OPTIONS.find((m) => m.id === mode)!.label;
   const fanLabel = FAN_OPTIONS.find((f) => f.id === fan)!.label;
+  const ModeIcon = MODE_OPTIONS.find((m) => m.id === mode)!.icon;
 
+  const radius = 52;
+  const circumference = 2 * Math.PI * radius;
   const pct = Math.min(1, Math.max(0, (temp - 16) / (30 - 16)));
-  const arcLen = Math.PI * 50;
-  const dash = pct * arcLen;
+  const dash = pct * circumference;
 
   const accent = isOn ? "var(--active)" : "var(--muted-foreground)";
 
   return (
-    <div className="h-full rounded-2xl bg-card p-4 border border-border flex flex-col gap-3 overflow-hidden">
-      <div className="flex items-start justify-between">
+    <div className="h-full rounded-2xl bg-card p-4 border border-border flex flex-col overflow-hidden">
+      <div className="flex items-center justify-between">
         <div>
           <div className="text-xs text-muted-foreground">{room}</div>
           <div className="text-sm font-medium">{name}</div>
@@ -60,52 +62,61 @@ export function AcCard({
         </div>
       </div>
 
-      <div className="relative mx-auto w-40 h-24 flex-shrink-0">
-        <svg viewBox="0 0 160 96" className="w-full h-full">
-          <path
-            d="M 20 84 A 60 60 0 1 1 140 84"
-            fill="none"
-            stroke="var(--muted)"
-            strokeWidth="8"
-            strokeLinecap="round"
-          />
-          <path
-            d="M 20 84 A 60 60 0 1 1 140 84"
-            fill="none"
-            stroke={accent}
-            strokeWidth="8"
-            strokeLinecap="round"
-            strokeDasharray={`${dash} 999`}
-            style={{ transition: "stroke-dasharray 200ms, stroke 200ms" }}
-          />
-        </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center pt-4">
-          <div className="text-[10px] text-muted-foreground">{isOn ? modeLabel : "Off"}</div>
-          <div className="text-3xl font-light tabular-nums">
-            {temp}
-            <span className="text-sm align-top text-muted-foreground ml-0.5">°C</span>
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3">
+        <div className="relative w-36 h-36">
+          <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
+            <circle
+              cx="60"
+              cy="60"
+              r={radius}
+              fill="none"
+              stroke="var(--muted)"
+              strokeWidth="8"
+              strokeLinecap="round"
+            />
+            <circle
+              cx="60"
+              cy="60"
+              r={radius}
+              fill="none"
+              stroke={accent}
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeDasharray={`${dash} ${circumference}`}
+              style={{ transition: "stroke-dasharray 200ms, stroke 200ms" }}
+            />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{isOn ? modeLabel : "Off"}</div>
+            <div className="text-3xl font-semibold tabular-nums">
+              {temp}
+              <span className="text-sm align-top text-muted-foreground ml-0.5">°C</span>
+            </div>
+            <div className="mt-0.5">
+              <ModeIcon className={`size-4 ${isOn ? "text-active" : "text-muted-foreground"}`} />
+            </div>
           </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setTemp((t) => Math.max(16, t - 1))}
+            className="size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition"
+            aria-label="Decrease"
+          >
+            <Minus className="size-4" />
+          </button>
+          <button
+            onClick={() => setTemp((t) => Math.min(30, t + 1))}
+            className="size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition"
+            aria-label="Increase"
+          >
+            <Plus className="size-4" />
+          </button>
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-3">
-        <button
-          onClick={() => setTemp((t) => Math.max(16, t - 1))}
-          className="size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition"
-          aria-label="Decrease"
-        >
-          <Minus className="size-4" />
-        </button>
-        <button
-          onClick={() => setTemp((t) => Math.min(30, t + 1))}
-          className="size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition"
-          aria-label="Increase"
-        >
-          <Plus className="size-4" />
-        </button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2 mt-auto">
+      <div className="grid grid-cols-2 gap-2 mt-2">
         <Selector
           label="Mode"
           value={modeLabel}
