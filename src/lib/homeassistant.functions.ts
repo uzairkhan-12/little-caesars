@@ -110,7 +110,7 @@ export const getDashboardData = createServerFn({ method: "GET" }).handler(
             ? `${baseUrl}/api/camera_proxy_stream/${s.entity_id}?token=${accessToken}`
             : null,
           snapshot_url: accessToken
-            ? `${baseUrl}/api/camera_proxy/${s.entity_id}?token=${accessToken}&_t=${Date.now()}`
+            ? `${baseUrl}/api/camera_proxy/${s.entity_id}?token=${accessToken}`
             : null,
         };
       });
