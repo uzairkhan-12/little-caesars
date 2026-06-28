@@ -41,7 +41,8 @@ function Dashboard() {
 
   return (
     <div className="h-screen overflow-hidden bg-background text-foreground flex flex-col">
-      <header className="flex-none px-6 py-4 flex items-center justify-between">
+      <header className="flex-none px-6 py-5 flex items-center justify-between">
+
         <div className="flex items-center gap-3">
           <img src={logoAsset.url} alt="Little Caesars" className="h-9 w-auto object-contain" />
           <div>
@@ -66,7 +67,7 @@ function Dashboard() {
       </header>
 
       <main className="flex-1 min-h-0 px-6 pb-4 flex flex-col gap-4">
-        <section className="flex-none grid grid-cols-2 lg:grid-cols-4 gap-4 h-[48%] lg:h-[42%]">
+        <section className="flex-none grid grid-cols-2 lg:grid-cols-4 gap-4 h-[32%] lg:h-[30%]">
           {climates.map((climate, idx) =>
             climate ? (
               <AcCard key={climate.entity_id} climate={climate} />
