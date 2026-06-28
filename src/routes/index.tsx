@@ -25,7 +25,7 @@ function Dashboard() {
           <div>
             <h1 className="text-xl font-semibold">My Home</h1>
             <p className="text-xs text-muted-foreground">
-              {new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}
+              {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
             </p>
           </div>
         </div>
