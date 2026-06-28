@@ -8,23 +8,7 @@ export function CamerasCard({ camera }: { camera: CameraEntity | null }) {
 
   return (
     <div className="h-full rounded-2xl bg-card border border-border flex flex-col overflow-hidden">
-      <div className="flex-none px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="size-9 rounded-xl bg-primary/15 text-primary flex items-center justify-center">
-            <Video className="size-4" />
-          </div>
-          <div>
-            <div className="text-[10px] uppercase tracking-wide text-muted-foreground">Security</div>
-            <div className="text-sm font-medium">{camera?.name ?? "Camera"}</div>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground bg-black/30 px-2.5 py-1 rounded-full">
-          <Circle className="size-2 fill-destructive text-destructive animate-pulse" />
-          Live
-        </div>
-      </div>
-
-      <div className="relative flex-1 min-h-0 mx-4 mb-4 rounded-xl bg-gradient-to-br from-surface-elevated to-background border border-border overflow-hidden">
+      <div className="relative flex-1 min-h-0 m-4 rounded-xl bg-gradient-to-br from-surface-elevated to-background border border-border overflow-hidden">
         {mounted && camera?.stream_url ? (
           <img
             key={camera.stream_url}
@@ -57,4 +41,5 @@ export function CamerasCard({ camera }: { camera: CameraEntity | null }) {
     </div>
   );
 }
+
 
