@@ -59,10 +59,10 @@ function Dashboard() {
             className="h-12 w-auto object-contain"
           />
           <div className="text-right leading-tight">
-            <div className="text-sm font-semibold tracking-wide">
-              <span className="font-bold">Prime</span>Wave
+            <div className="text-sm tracking-wide">
+              <span className="font-extrabold">PRIME</span>WAVE
             </div>
-            <div className="text-[10px] text-muted-foreground uppercase tracking-wider">AI Solutions</div>
+            <div className="text-[10px] text-muted-foreground tracking-wider">AI SOLUTIONS</div>
           </div>
         </div>
       </header>
