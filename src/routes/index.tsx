@@ -8,8 +8,8 @@ import { AcCard } from "@/components/dashboard/AcCard";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Smart Home Dashboard" },
-      { name: "description", content: "Control lights, cameras and AC across your home." },
+      { title: "Kitchen Dashboard" },
+      { name: "description", content: "Control kitchen lights, camera and AC." },
     ],
   }),
   component: Dashboard,
@@ -17,38 +17,44 @@ export const Route = createFileRoute("/")({
 
 function Dashboard() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="max-w-7xl mx-auto px-6 pt-8 pb-6 flex items-center justify-between">
+    <div className="h-screen overflow-hidden bg-background text-foreground flex flex-col">
+      <header className="flex-none px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
             src={logoAsset.url}
             alt="Little Caesars"
-            className="h-10 w-auto object-contain"
+            className="h-9 w-auto object-contain"
           />
           <div>
-            <h1 className="text-xl font-semibold">My Home</h1>
+            <h1 className="text-lg font-semibold leading-tight">Kitchen</h1>
             <p className="text-xs text-muted-foreground">
               {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
             </p>
           </div>
         </div>
-        <button className="size-10 rounded-xl bg-card border border-border flex items-center justify-center hover:bg-accent transition">
+        <button className="size-9 rounded-xl bg-card border border-border flex items-center justify-center hover:bg-accent transition">
           <Settings className="size-4" />
         </button>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 pb-12 space-y-8">
-        <section>
-          <SectionTitle title="Overview" subtitle="Quick controls" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <main className="flex-1 px-6 pb-4 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
+        <section className="min-h-0 flex flex-col">
+          <SectionTitle title="Overview" />
+          <div className="flex-1 min-h-0">
             <LightCard name="Living Room" />
+          </div>
+        </section>
+
+        <section className="min-h-0 flex flex-col">
+          <SectionTitle title="Security" />
+          <div className="flex-1 min-h-0">
             <CamerasCard />
           </div>
         </section>
 
-        <section>
-          <SectionTitle title="Climate" subtitle="Air conditioning" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <section className="lg:col-span-2 min-h-0 flex flex-col">
+          <SectionTitle title="Climate" />
+          <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-3 gap-4">
             <AcCard room="Bedroom" name="Bedroom AC" currentTemp={28} />
             <AcCard room="Living Room" name="Living Room AC" currentTemp={26} />
             <AcCard room="CEO Office" name="Office AC" currentTemp={24} />
@@ -59,11 +65,10 @@ function Dashboard() {
   );
 }
 
-function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) {
+function SectionTitle({ title }: { title: string }) {
   return (
-    <div className="mb-3 flex items-baseline justify-between">
-      <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{title}</h2>
-      <span className="text-xs text-muted-foreground">{subtitle}</span>
+    <div className="mb-2 flex items-center justify-between">
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h2>
     </div>
   );
 }
