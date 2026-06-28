@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Home, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
+import logoAsset from "@/assets/little-caesars-logo.png.asset.json";
 import { LightCard } from "@/components/dashboard/LightCard";
 import { CamerasCard } from "@/components/dashboard/CamerasCard";
 import { AcCard } from "@/components/dashboard/AcCard";
-import { KitchenCard } from "@/components/dashboard/KitchenCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,9 +20,11 @@ function Dashboard() {
     <div className="min-h-screen bg-background text-foreground">
       <header className="max-w-7xl mx-auto px-6 pt-8 pb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center">
-            <Home className="size-5" />
-          </div>
+          <img
+            src={logoAsset.url}
+            alt="Little Caesars"
+            className="h-10 w-auto object-contain"
+          />
           <div>
             <h1 className="text-xl font-semibold">My Home</h1>
             <p className="text-xs text-muted-foreground">
@@ -38,9 +40,8 @@ function Dashboard() {
       <main className="max-w-7xl mx-auto px-6 pb-12 space-y-8">
         <section>
           <SectionTitle title="Overview" subtitle="Quick controls" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <LightCard name="Living Room" />
-            <KitchenCard name="Little Caesars" />
             <CamerasCard />
           </div>
         </section>
