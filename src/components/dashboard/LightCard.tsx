@@ -6,7 +6,7 @@ export function LightCard({ name = "Living Room Light" }: { name?: string }) {
   const [brightness, setBrightness] = useState(75);
 
   return (
-    <div className="rounded-2xl bg-card p-5 border border-border flex flex-col gap-4 min-h-[200px]">
+    <div className="h-full rounded-2xl bg-card p-4 border border-border flex flex-col gap-3">
       <div className="flex items-start justify-between">
         <div
           className={`size-12 rounded-xl flex items-center justify-center transition-colors ${
