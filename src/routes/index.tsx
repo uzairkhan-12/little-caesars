@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Settings, RefreshCw } from "lucide-react";
-import { queryOptions, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
-import logoAsset from "@/assets/little-caesars-logo.png.asset.json";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import primewaveLogoAsset from "@/assets/primewave-logo.png.asset.json";
 import { LightCard } from "@/components/dashboard/LightCard";
 import { CamerasCard } from "@/components/dashboard/CamerasCard";
 import { AcCard } from "@/components/dashboard/AcCard";
@@ -32,7 +31,6 @@ export const Route = createFileRoute("/")({
 
 function Dashboard() {
   const { data } = useSuspenseQuery(dashboardQuery);
-  const qc = useQueryClient();
 
   const climates = data.climates.slice(0, 3);
   while (climates.length < 3) {
@@ -42,28 +40,17 @@ function Dashboard() {
   return (
     <div className="h-screen overflow-hidden bg-background text-foreground flex flex-col">
       <header className="flex-none px-6 py-5 flex items-center justify-between">
-
-        <div className="flex items-center gap-3">
-          <img src={logoAsset.url} alt="Little Caesars" className="h-9 w-auto object-contain" />
-          <div>
-            <h1 className="text-lg font-semibold leading-tight">Kitchen</h1>
-            <p className="text-xs text-muted-foreground">
-              {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
-            </p>
-          </div>
+        <div>
+          <h1 className="text-lg font-semibold leading-tight">Kitchen</h1>
+          <p className="text-xs text-muted-foreground">
+            {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+          </p>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => qc.invalidateQueries({ queryKey: ["ha", "dashboard"] })}
-            className="size-9 rounded-xl bg-card border border-border flex items-center justify-center hover:bg-accent transition"
-            aria-label="Refresh"
-          >
-            <RefreshCw className="size-4" />
-          </button>
-          <button className="size-9 rounded-xl bg-card border border-border flex items-center justify-center hover:bg-accent transition">
-            <Settings className="size-4" />
-          </button>
-        </div>
+        <img
+          src={primewaveLogoAsset.url}
+          alt="PrimeWave AI Solutions"
+          className="h-10 w-auto object-contain"
+        />
       </header>
 
       <main className="flex-1 min-h-0 px-6 pb-4 flex flex-col gap-4">
