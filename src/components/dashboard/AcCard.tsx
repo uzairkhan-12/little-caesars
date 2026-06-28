@@ -85,22 +85,22 @@ export function AcCard({ climate }: { climate: ClimateEntity }) {
   const inc = () => setTempMutation.mutate(Math.min(climate.max_temp, temp + 1));
 
   return (
-    <div className="h-full rounded-2xl bg-card p-4 border border-border flex flex-col overflow-hidden">
+    <div className="h-full rounded-2xl bg-card p-3 lg:p-4 border border-border flex flex-col overflow-hidden">
       <div className="flex items-center justify-between">
         <div className="min-w-0">
-          <div className="text-xs text-muted-foreground">Climate</div>
-          <div className="text-sm font-medium truncate">{climate.name}</div>
+          <div className="text-[10px] lg:text-xs text-muted-foreground">Climate</div>
+          <div className="text-xs lg:text-sm font-medium truncate">{climate.name}</div>
         </div>
         <div className="text-right">
           <div className="text-[10px] uppercase tracking-wide text-muted-foreground">Current</div>
-          <div className="text-sm font-medium">
+          <div className="text-xs lg:text-sm font-medium">
             {climate.current_temperature != null ? `${climate.current_temperature}°C` : "—"}
           </div>
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-3">
-        <div className="relative w-36 h-36">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-2 lg:gap-3">
+        <div className="relative w-28 h-28 lg:w-36 lg:h-36">
           <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
             <circle cx="60" cy="60" r={radius} fill="none" stroke="var(--muted)" strokeWidth="8" strokeLinecap="round" />
             <circle
@@ -114,9 +114,9 @@ export function AcCard({ climate }: { climate: ClimateEntity }) {
             <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
               {climate.available ? labelize(mode) : "Unavailable"}
             </div>
-            <div className="text-3xl font-semibold tabular-nums">
+            <div className="text-2xl lg:text-3xl font-semibold tabular-nums">
               {climate.target_temperature != null ? climate.target_temperature : "—"}
-              <span className="text-sm align-top text-muted-foreground ml-0.5">°C</span>
+              <span className="text-xs lg:text-sm align-top text-muted-foreground ml-0.5">°C</span>
             </div>
             <div className="mt-0.5">
               <ModeIcon className={`size-4 ${isOn ? "text-active" : "text-muted-foreground"}`} />
@@ -128,7 +128,7 @@ export function AcCard({ climate }: { climate: ClimateEntity }) {
           <button
             onClick={dec}
             disabled={!climate.available || setTempMutation.isPending}
-            className="size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
+            className="size-8 lg:size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
             aria-label="Decrease"
           >
             <Minus className="size-4" />
@@ -136,7 +136,7 @@ export function AcCard({ climate }: { climate: ClimateEntity }) {
           <button
             onClick={inc}
             disabled={!climate.available || setTempMutation.isPending}
-            className="size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
+            className="size-8 lg:size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
             aria-label="Increase"
           >
             <Plus className="size-4" />
