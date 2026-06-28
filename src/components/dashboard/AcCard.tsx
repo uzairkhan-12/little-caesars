@@ -1,6 +1,15 @@
 import { useState } from "react";
 import {
-  Minus, Plus, Power, Flame, Snowflake, Droplet, Fan, Wand2, ChevronDown, ThermometerSnowflake,
+  Minus,
+  Plus,
+  Power,
+  Flame,
+  Snowflake,
+  Droplet,
+  Fan,
+  Wand2,
+  ChevronDown,
+  ThermometerSnowflake,
 } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -72,91 +81,76 @@ export function AcCard({ climate }: { climate: ClimateEntity }) {
   const ModeIcon = MODE_ICONS[mode] ?? Power;
   const temp = climate.target_temperature ?? climate.min_temp;
 
-  const radius = 52;
-  const circumference = 2 * Math.PI * radius;
-  const pct = Math.min(
-    1,
-    Math.max(0, (temp - climate.min_temp) / Math.max(1, climate.max_temp - climate.min_temp)),
-  );
-  const dash = pct * circumference;
-  const accent = isOn ? "var(--active)" : "var(--muted-foreground)";
-
   const dec = () => setTempMutation.mutate(Math.max(climate.min_temp, temp - 1));
   const inc = () => setTempMutation.mutate(Math.min(climate.max_temp, temp + 1));
 
   return (
-    <div className="h-full rounded-2xl bg-card p-3 lg:p-4 border border-border flex flex-col overflow-hidden">
-      <div className="flex items-center justify-between">
+    <div className="h-full rounded-2xl bg-card p-2 lg:p-3 border border-border flex flex-col overflow-hidden">
+      <div className="flex items-center justify-between gap-2">
         <div className="min-w-0">
-          <div className="text-[10px] lg:text-xs text-muted-foreground">Climate</div>
-          <div className="text-xs lg:text-sm font-medium truncate">{climate.name}</div>
+          <div className="text-[10px] text-muted-foreground">Climate</div>
+          <div className="text-xs font-medium truncate">{climate.name}</div>
         </div>
-        <div className="text-right">
-          <div className="text-[10px] uppercase tracking-wide text-muted-foreground">Current</div>
-          <div className="text-xs lg:text-sm font-medium">
+        <div className="text-right shrink-0">
+          <div className="text-[10px] text-muted-foreground">Now</div>
+          <div className="text-xs font-medium">
             {climate.current_temperature != null ? `${climate.current_temperature}°C` : "—"}
           </div>
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-2 lg:gap-3">
-        <div className="relative w-28 h-28 lg:w-36 lg:h-36">
-          <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
-            <circle cx="60" cy="60" r={radius} fill="none" stroke="var(--muted)" strokeWidth="8" strokeLinecap="round" />
-            <circle
-              cx="60" cy="60" r={radius} fill="none"
-              stroke={accent} strokeWidth="8" strokeLinecap="round"
-              strokeDasharray={`${dash} ${circumference}`}
-              style={{ transition: "stroke-dasharray 200ms, stroke 200ms" }}
-            />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+      <div className="flex-1 min-h-0 flex items-center justify-center gap-3">
+        <button
+          onClick={dec}
+          disabled={!climate.available || setTempMutation.isPending}
+          className="size-8 lg:size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
+          aria-label="Decrease"
+        >
+          <Minus className="size-4" />
+        </button>
+
+        <div className="flex flex-col items-center justify-center">
+          <div className="text-2xl lg:text-3xl font-semibold tabular-nums leading-none">
+            {climate.target_temperature != null ? climate.target_temperature : "—"}
+            <span className="text-xs lg:text-sm align-top text-muted-foreground ml-0.5">°C</span>
+          </div>
+          <div className="flex items-center gap-1 mt-0.5">
+            <ModeIcon className={`size-3.5 ${isOn ? "text-active" : "text-muted-foreground"}`} />
+            <span className={`text-[10px] uppercase tracking-wide ${isOn ? "text-active" : "text-muted-foreground"}`}>
               {climate.available ? labelize(mode) : "Unavailable"}
-            </div>
-            <div className="text-2xl lg:text-3xl font-semibold tabular-nums">
-              {climate.target_temperature != null ? climate.target_temperature : "—"}
-              <span className="text-xs lg:text-sm align-top text-muted-foreground ml-0.5">°C</span>
-            </div>
-            <div className="mt-0.5">
-              <ModeIcon className={`size-4 ${isOn ? "text-active" : "text-muted-foreground"}`} />
-            </div>
+            </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={dec}
-            disabled={!climate.available || setTempMutation.isPending}
-            className="size-8 lg:size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
-            aria-label="Decrease"
-          >
-            <Minus className="size-4" />
-          </button>
-          <button
-            onClick={inc}
-            disabled={!climate.available || setTempMutation.isPending}
-            className="size-8 lg:size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
-            aria-label="Increase"
-          >
-            <Plus className="size-4" />
-          </button>
-        </div>
+        <button
+          onClick={inc}
+          disabled={!climate.available || setTempMutation.isPending}
+          className="size-8 lg:size-9 rounded-full border border-border flex items-center justify-center hover:bg-accent transition disabled:opacity-40"
+          aria-label="Increase"
+        >
+          <Plus className="size-4" />
+        </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mt-2">
+      <div className="grid grid-cols-2 gap-2">
         <Selector
           label="Mode"
           value={labelize(mode)}
           icon={<ModeIcon className="size-4" />}
           open={openMode}
           disabled={!climate.available || setModeMutation.isPending}
-          onToggle={() => { setOpenMode((v) => !v); setOpenFan(false); }}
+          onToggle={() => {
+            setOpenMode((v) => !v);
+            setOpenFan(false);
+          }}
           options={climate.hvac_modes.map((m) => {
             const I = MODE_ICONS[m] ?? Power;
             return { id: m, label: labelize(m), icon: <I className="size-4" />, active: m === mode };
           })}
-          onSelect={(id) => { setModeMutation.mutate(id); setOpenMode(false); }}
+          onSelect={(id) => {
+            setModeMutation.mutate(id);
+            setOpenMode(false);
+          }}
         />
         <Selector
           label="Fan"
@@ -164,11 +158,20 @@ export function AcCard({ climate }: { climate: ClimateEntity }) {
           icon={<Fan className="size-4" />}
           open={openFan}
           disabled={!climate.available || climate.fan_modes.length === 0 || setFanMutation.isPending}
-          onToggle={() => { setOpenFan((v) => !v); setOpenMode(false); }}
+          onToggle={() => {
+            setOpenFan((v) => !v);
+            setOpenMode(false);
+          }}
           options={climate.fan_modes.map((f) => ({
-            id: f, label: labelize(f), icon: <Fan className="size-4" />, active: f === climate.fan_mode,
+            id: f,
+            label: labelize(f),
+            icon: <Fan className="size-4" />,
+            active: f === climate.fan_mode,
           }))}
-          onSelect={(id) => { setFanMutation.mutate(id); setOpenFan(false); }}
+          onSelect={(id) => {
+            setFanMutation.mutate(id);
+            setOpenFan(false);
+          }}
         />
       </div>
     </div>
@@ -176,7 +179,14 @@ export function AcCard({ climate }: { climate: ClimateEntity }) {
 }
 
 function Selector({
-  label, value, icon, open, disabled, onToggle, options, onSelect,
+  label,
+  value,
+  icon,
+  open,
+  disabled,
+  onToggle,
+  options,
+  onSelect,
 }: {
   label: string;
   value: string;
@@ -192,7 +202,7 @@ function Selector({
       <button
         onClick={onToggle}
         disabled={disabled}
-        className="w-full rounded-xl bg-surface-elevated px-3 py-2 flex items-center gap-2 hover:bg-accent transition text-left disabled:opacity-50"
+        className="w-full rounded-xl bg-surface-elevated px-2 py-1.5 flex items-center gap-2 hover:bg-accent transition text-left disabled:opacity-50"
       >
         <span className="text-muted-foreground">{icon}</span>
         <span className="flex-1 min-w-0">
@@ -202,7 +212,7 @@ function Selector({
         <ChevronDown className={`size-4 text-muted-foreground transition ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <div className="absolute z-20 left-0 right-0 mt-2 rounded-xl bg-popover border border-border shadow-xl py-1 overflow-hidden max-h-60 overflow-y-auto">
+        <div className="absolute z-20 left-0 right-0 bottom-full mb-1 rounded-xl bg-popover border border-border shadow-xl py-1 overflow-hidden max-h-60 overflow-y-auto">
           {options.map((o) => (
             <button
               key={o.id}
