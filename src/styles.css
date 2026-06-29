@@ -291,27 +291,17 @@
       height: 100%;
     }
 
-    .camera-section {
-      flex: 1;
-      min-height: 0;
-    }
-
     .camera-layout {
-      flex: 1;
       flex-direction: column;
       justify-content: center;
       align-items: stretch;
       gap: 0;
-      min-height: 0;
       width: 100%;
     }
 
     .camera-frame {
-      flex: 1;
       width: 100%;
       max-width: 100%;
-      min-height: 0;
-      max-height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -323,12 +313,8 @@
 
     .camera-feed {
       aspect-ratio: 16 / 9;
-      min-height: 0;
-      max-height: 100%;
-      height: auto;
       width: 100%;
       max-width: 100%;
-      object-fit: contain;
     }
   }
 
@@ -340,16 +326,25 @@
       gap: 0.75rem;
     }
 
+    .camera-section {
+      flex: 1;
+      min-height: 0;
+    }
+
     .camera-layout {
+      flex: 1;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      min-height: 0;
     }
 
     .camera-frame {
       flex: 0 0 auto;
       max-width: min(50vw, 46rem);
       width: auto;
+      min-height: 0;
+      max-height: 100%;
     }
 
     .clock-aside {
@@ -363,6 +358,9 @@
 
     .camera-feed {
       aspect-ratio: auto;
+      min-height: 0;
+      max-height: 100%;
+      height: auto;
       width: auto;
     }
   }

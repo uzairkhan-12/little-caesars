@@ -57,7 +57,7 @@ function Dashboard() {
   });
 
   return (
-    <div className="dashboard-shell min-h-dvh w-full max-w-[100vw] lg:h-dvh flex flex-col overflow-x-hidden overflow-y-auto lg:overflow-hidden">
+    <div className="dashboard-shell min-h-dvh w-full max-w-[100vw] flex flex-col overflow-x-hidden overflow-y-auto xl:h-dvh xl:overflow-hidden">
       <header className="dashboard-header flex-none sticky top-0 z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4 border-b border-border/60 bg-surface/80 backdrop-blur-md">
         <div className="min-w-0 justify-self-start">
           <img
@@ -97,7 +97,7 @@ function Dashboard() {
         </div>
       </header>
 
-      <main className="dashboard-main flex-1 min-h-0 flex flex-col lg:overflow-hidden">
+      <main className="dashboard-main flex-1 flex flex-col xl:min-h-0 xl:overflow-hidden">
         <section aria-label="Climate and lighting controls" className="flex-none">
           <p className="section-label mb-2 sm:mb-3">Controls</p>
 
@@ -123,9 +123,9 @@ function Dashboard() {
           </div>
         </section>
 
-        <section className="camera-section flex-none lg:flex-1 lg:min-h-0 flex flex-col" aria-label="Camera feed">
+        <section className="camera-section flex-none xl:flex-1 xl:min-h-0 flex flex-col" aria-label="Camera feed">
           <p className="section-label mb-2 sm:mb-3">Live Feed</p>
-          <div className="camera-layout flex-1 min-h-0 lg:items-center">
+          <div className="camera-layout min-h-0 xl:flex-1 xl:items-center">
             <div className="camera-frame min-h-0 flex items-center">
               <CamerasCard camera={data.cameras[0] ?? null} />
             </div>
