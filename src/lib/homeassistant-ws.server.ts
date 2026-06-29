@@ -1,3 +1,4 @@
+import "./load-env.server";
 import type { DashboardData, OutdoorWeather } from "./homeassistant.types";
 
 type HAState = {

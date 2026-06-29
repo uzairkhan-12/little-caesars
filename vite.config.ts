@@ -7,6 +7,7 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 const TUNNEL_HOST = "littlecaesars.primewave2.tech";
+const useCloudflareTunnel = process.env.CLOUDFLARE_TUNNEL === "1";
 
 export default defineConfig({
   // Self-hosted Node server for Proxmox/Docker (not Cloudflare Workers)
@@ -27,12 +28,16 @@ export default defineConfig({
       port: 8080,
       strictPort: true,
       allowedHosts: [TUNNEL_HOST, ".primewave2.tech"],
-      // WebSocket HMR over Cloudflare Tunnel (HTTPS terminates at Cloudflare)
-      ws: {
-        host: TUNNEL_HOST,
-        clientPort: 443,
-        protocol: "wss",
-      },
+      // Only when behind Cloudflare Tunnel (npm run dev:tunnel). Plain npm run dev uses local HMR.
+      ...(useCloudflareTunnel
+        ? {
+            ws: {
+              host: TUNNEL_HOST,
+              clientPort: 443,
+              protocol: "wss",
+            },
+          }
+        : {}),
     },
     preview: {
       port: 8080,

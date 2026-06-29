@@ -1,3 +1,4 @@
+import "./load-env.server";
 import { createServerFn } from "@tanstack/react-start";
 import { isAuthenticated } from "./auth.server";
 import { getHaWebSocketClient } from "./homeassistant-ws.server";

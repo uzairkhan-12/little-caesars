@@ -6,12 +6,12 @@ export function PrimewaveFooter() {
       <div className="primewave-footer__stack">
         <div className="primewave-footer__inner">
           <span className="primewave-footer__label">Powered by</span>
-          <div className="primewave-footer__brand" aria-label="PrimeWave AI Solutions">
+          <span className="primewave-footer__brand" aria-label="PrimeWave AI Solutions">
             <span className="primewave-footer__name">
               <span className="primewave-footer__prime">PRIME</span>WAVE
             </span>
             <span className="primewave-footer__tagline">AI Solutions</span>
-          </div>
+          </span>
         </div>
 
         <p className="primewave-footer__support">
