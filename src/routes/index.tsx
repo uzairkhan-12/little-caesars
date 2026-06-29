@@ -40,8 +40,8 @@ function Dashboard() {
   const { data } = useSuspenseQuery(dashboardQuery);
   useHaWebSocket();
 
-  const climates = data.climates.slice(0, 3);
-  while (climates.length < 3) {
+  const climates = data.climates.slice(0, 4);
+  while (climates.length < 4) {
     climates.push(null as any);
   }
 
@@ -131,7 +131,7 @@ function Dashboard() {
               <CamerasCard camera={data.cameras[0] ?? null} />
             </div>
             <aside
-              className="clock-aside hidden lg:flex min-h-0 items-center justify-center"
+              className="clock-aside hidden xl:flex min-h-0 items-center justify-center"
               aria-label="Local time"
             >
               <LiveClock weather={data.outdoor_weather} />

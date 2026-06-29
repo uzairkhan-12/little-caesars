@@ -10,13 +10,13 @@ export function CamerasCard({ camera }: { camera: CameraEntity | null }) {
   const imageSrc = camera?.stream_url ?? camera?.snapshot_url ?? null;
 
   return (
-    <div className="camera-feed h-full w-full overflow-hidden relative flex items-center justify-center lg:items-start lg:justify-start">
+    <div className="camera-feed h-full w-full overflow-hidden relative flex items-center justify-center lg:items-center lg:justify-center xl:items-start xl:justify-start">
       {mounted && imageSrc ? (
         <img
           key={imageSrc}
           src={imageSrc}
           alt=""
-          className="relative z-10 w-full h-full object-cover sm:object-contain lg:object-contain lg:object-left-top max-lg:mx-auto"
+          className="relative z-10 w-full h-full object-cover sm:object-contain lg:object-contain xl:object-left-top max-lg:mx-auto"
         />
       ) : (
         <div className="relative z-10 flex flex-col items-center justify-center gap-3 text-muted-foreground px-4 text-center">
