@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { isAuthenticated } from "./auth.server";
 import { getHaWebSocketClient } from "./homeassistant-ws.server";
 import type { DashboardData } from "./homeassistant.types";
 
@@ -34,8 +35,15 @@ async function haFetch(path: string, init?: RequestInit) {
   return res;
 }
 
+function requireAuth() {
+  if (!isAuthenticated()) {
+    throw new Error("Unauthorized");
+  }
+}
+
 export const getDashboardData = createServerFn({ method: "GET" }).handler(
   async (): Promise<DashboardData> => {
+    requireAuth();
     const client = getHaWebSocketClient();
     await client.ensureConnected();
     return client.getDashboard();
@@ -52,6 +60,7 @@ export const callHaService = createServerFn({ method: "POST" })
     }) => data,
   )
   .handler(async ({ data }) => {
+    requireAuth();
     await haFetch(`/api/services/${data.domain}/${data.service}`, {
       method: "POST",
       body: JSON.stringify({ entity_id: data.entity_id, ...(data.data || {}) }),

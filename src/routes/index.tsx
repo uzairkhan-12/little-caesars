@@ -1,12 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { Wind, LightbulbOff } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { LogOut, Wind, LightbulbOff } from "lucide-react";
 import littleCaesarsLogo from "@/assets/little-caesars-logo.png";
 import primewaveLogo from "@/assets/primewave-logo.png";
 import { LightCard } from "@/components/dashboard/LightCard";
 import { CamerasCard } from "@/components/dashboard/CamerasCard";
 import { LiveClock } from "@/components/dashboard/LiveClock";
 import { AcCard } from "@/components/dashboard/AcCard";
+import { getAuthSession, logout } from "@/lib/auth.functions";
 import { getDashboardData } from "@/lib/homeassistant.functions";
 
 const dashboardQuery = queryOptions({
@@ -23,6 +25,12 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Live Home Assistant control: lights, camera, AC." },
     ],
   }),
+  beforeLoad: async () => {
+    const session = await getAuthSession();
+    if (!session.authenticated) {
+      throw redirect({ to: "/login" });
+    }
+  },
   loader: ({ context }) => context.queryClient.ensureQueryData(dashboardQuery),
   component: Dashboard,
   errorComponent: ({ error }) => (
@@ -38,6 +46,14 @@ function ControlWrap({ children }: { children: React.ReactNode }) {
 
 function Dashboard() {
   const { data } = useSuspenseQuery(dashboardQuery);
+  const router = useRouter();
+  const logoutFn = useServerFn(logout);
+
+  async function handleLogout() {
+    await logoutFn();
+    await router.invalidate();
+    await router.navigate({ to: "/login" });
+  }
 
   const climates = data.climates.slice(0, 4);
   while (climates.length < 4) {
@@ -81,6 +97,14 @@ function Dashboard() {
         </div>
 
         <div className="min-w-0 justify-self-end flex items-center justify-end gap-1.5 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => void handleLogout()}
+            className="inline-flex items-center justify-center size-8 sm:size-9 rounded-lg border border-border/60 bg-surface-elevated/60 text-muted-foreground hover:text-foreground hover:bg-accent transition touch-manipulation"
+            aria-label="Sign out"
+          >
+            <LogOut className="size-4" />
+          </button>
           <img
             src={primewaveLogo}
             alt="PrimeWave AI Solutions"

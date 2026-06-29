@@ -89,6 +89,21 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
+
+  input,
+  textarea,
+  select {
+    color-scheme: dark;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px oklch(0.25 0.015 255) inset !important;
+    box-shadow: 0 0 0 1000px oklch(0.25 0.015 255) inset !important;
+    -webkit-text-fill-color: oklch(0.97 0.005 250) !important;
+    caret-color: oklch(0.97 0.005 250);
+  }
 }
 
 @layer components {
@@ -99,6 +114,20 @@
       var(--background);
     color: var(--foreground);
     padding-bottom: max(1rem, env(safe-area-inset-bottom, 0));
+  }
+
+  .login-page {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.72 0.17 55 / 10%), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 100%, oklch(0.72 0.16 240 / 8%), transparent),
+      var(--background);
+  }
+
+  .login-card {
+    background: linear-gradient(165deg, oklch(0.24 0.014 255 / 92%), oklch(0.2 0.012 255 / 96%));
+    box-shadow:
+      0 1px 0 oklch(1 0 0 / 4%) inset,
+      0 8px 32px -12px oklch(0 0 0 / 50%);
   }
 
   .dashboard-header {
