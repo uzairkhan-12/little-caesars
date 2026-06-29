@@ -8,12 +8,12 @@ import { CamerasCard } from "@/components/dashboard/CamerasCard";
 import { LiveClock } from "@/components/dashboard/LiveClock";
 import { AcCard } from "@/components/dashboard/AcCard";
 import { getDashboardData } from "@/lib/homeassistant.functions";
-import { useHaWebSocket } from "@/hooks/useHaWebSocket";
 
 const dashboardQuery = queryOptions({
   queryKey: ["ha", "dashboard"],
   queryFn: () => getDashboardData(),
   staleTime: Infinity,
+  refetchInterval: 3_000,
 });
 
 export const Route = createFileRoute("/")({
@@ -38,7 +38,6 @@ function ControlWrap({ children }: { children: React.ReactNode }) {
 
 function Dashboard() {
   const { data } = useSuspenseQuery(dashboardQuery);
-  useHaWebSocket();
 
   const climates = data.climates.slice(0, 4);
   while (climates.length < 4) {

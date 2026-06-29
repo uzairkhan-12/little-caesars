@@ -42,20 +42,6 @@ export const getDashboardData = createServerFn({ method: "GET" }).handler(
   },
 );
 
-export const waitForHaUpdate = createServerFn({ method: "POST" })
-  .validator((data: { since: number }) => data)
-  .handler(async ({ data }) => {
-    const client = getHaWebSocketClient();
-    await client.ensureConnected();
-
-    if (client.version > data.since) {
-      return { version: client.version, dashboard: client.getDashboard() };
-    }
-
-    await client.waitForUpdate(data.since, 30_000);
-    return { version: client.version, dashboard: client.getDashboard() };
-  });
-
 export const callHaService = createServerFn({ method: "POST" })
   .validator(
     (data: {
