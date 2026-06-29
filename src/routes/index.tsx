@@ -10,6 +10,7 @@ import { LiveClock } from "@/components/dashboard/LiveClock";
 import { AcCard } from "@/components/dashboard/AcCard";
 import { getAuthSession, logout } from "@/lib/auth.functions";
 import { getDashboardData } from "@/lib/homeassistant.functions";
+import { PrimewaveFooter } from "@/components/PrimewaveFooter";
 
 const dashboardQuery = queryOptions({
   queryKey: ["ha", "dashboard"],
@@ -86,14 +87,11 @@ function Dashboard() {
         <div className="text-center min-w-0 px-1">
           <div className="flex items-center justify-center gap-1.5 sm:gap-2">
             <span className="live-dot shrink-0" aria-hidden />
-            <h1 className="text-base sm:text-xl lg:text-2xl font-semibold tracking-tight truncate">
-              Kitchen
-            </h1>
+            <p className="text-xs sm:text-sm text-muted-foreground truncate">
+              <span className="md:hidden">{dateShort}</span>
+              <span className="hidden md:inline">{dateLabel}</span>
+            </p>
           </div>
-          <p className="text-[10px] sm:text-sm text-muted-foreground mt-0.5 truncate">
-            <span className="md:hidden">{dateShort}</span>
-            <span className="hidden md:inline">{dateLabel}</span>
-          </p>
         </div>
 
         <div className="min-w-0 justify-self-end flex items-center justify-end gap-1.5 sm:gap-3">
@@ -162,6 +160,8 @@ function Dashboard() {
           </div>
         </section>
       </main>
+
+      <PrimewaveFooter />
     </div>
   );
 }

@@ -2,11 +2,11 @@ import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import littleCaesarsLogo from "@/assets/little-caesars-logo.png";
-import primewaveLogo from "@/assets/primewave-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuthSession, login } from "@/lib/auth.functions";
+import { PrimewaveFooter } from "@/components/PrimewaveFooter";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -46,34 +46,27 @@ function LoginPage() {
   }
 
   return (
-    <div className="login-page min-h-dvh flex flex-col items-center justify-center px-4 py-10">
-      <div className="login-card w-full max-w-md rounded-2xl border border-border/60 bg-surface/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
-        <div className="flex items-center justify-between gap-4 mb-8">
+    <div className="login-page min-h-dvh flex flex-col">
+      <div className="flex-1 flex items-center justify-center px-4 py-10">
+        <div className="login-card w-full max-w-[22rem] sm:max-w-sm">
+        <div className="login-brand">
           <img
             src={littleCaesarsLogo}
             alt="Little Caesars"
-            className="h-10 w-auto object-contain"
+            className="login-brand__logo"
           />
-          <img
-            src={primewaveLogo}
-            alt="PrimeWave AI Solutions"
-            className="h-9 w-auto object-contain opacity-90"
-          />
+          <p className="login-brand__subtitle">Sign in to access the dashboard</p>
         </div>
 
-        <div className="mb-6">
-          <h1 className="text-xl font-semibold tracking-tight">Kitchen Dashboard</h1>
-          <p className="text-sm text-muted-foreground mt-1">Sign in to continue</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="login-field">
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
               name="username"
               autoComplete="username"
-              className="h-10 border-border/60 bg-background/80"
+              placeholder="Enter username"
+              className="login-input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={pending}
@@ -81,14 +74,15 @@ function LoginPage() {
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="login-field">
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               name="password"
               type="password"
               autoComplete="current-password"
-              className="h-10 border-border/60 bg-background/80"
+              placeholder="Enter password"
+              className="login-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={pending}
@@ -97,16 +91,19 @@ function LoginPage() {
           </div>
 
           {error ? (
-            <p className="text-sm text-destructive" role="alert">
+            <p className="login-error" role="alert">
               {error}
             </p>
           ) : null}
 
-          <Button type="submit" className="w-full" disabled={pending}>
+          <Button type="submit" className="login-submit w-full" disabled={pending}>
             {pending ? "Signing in…" : "Sign in"}
           </Button>
         </form>
+        </div>
       </div>
+
+      <PrimewaveFooter />
     </div>
   );
 }

@@ -2,9 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { deleteCookie, setCookie } from "@tanstack/start-server-core";
 
 import {
-  AUTH_PASSWORD,
-  AUTH_USERNAME,
   isAuthenticated,
+  isValidCredentials,
   SESSION_COOKIE,
   SESSION_TOKEN,
 } from "./auth.server";
@@ -24,7 +23,7 @@ export const getAuthSession = createServerFn({ method: "GET" }).handler(async ()
 export const login = createServerFn({ method: "POST" })
   .validator((data: { username: string; password: string }) => data)
   .handler(async ({ data }) => {
-    if (data.username !== AUTH_USERNAME || data.password !== AUTH_PASSWORD) {
+    if (!isValidCredentials(data.username, data.password)) {
       throw new Error("Invalid username or password");
     }
 

@@ -118,16 +118,189 @@
 
   .login-page {
     background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.72 0.17 55 / 10%), transparent),
-      radial-gradient(ellipse 60% 40% at 100% 100%, oklch(0.72 0.16 240 / 8%), transparent),
+      radial-gradient(ellipse 90% 60% at 50% -15%, oklch(0.72 0.17 55 / 14%), transparent),
+      radial-gradient(ellipse 50% 40% at 100% 100%, oklch(0.72 0.16 240 / 6%), transparent),
       var(--background);
   }
 
   .login-card {
-    background: linear-gradient(165deg, oklch(0.24 0.014 255 / 92%), oklch(0.2 0.012 255 / 96%));
+    border-radius: calc(var(--radius) + 6px);
+    border: 1px solid oklch(1 0 0 / 10%);
+    background: linear-gradient(165deg, oklch(0.24 0.014 255 / 95%), oklch(0.19 0.012 255 / 98%));
     box-shadow:
-      0 1px 0 oklch(1 0 0 / 4%) inset,
-      0 8px 32px -12px oklch(0 0 0 / 50%);
+      0 1px 0 oklch(1 0 0 / 5%) inset,
+      0 0 0 1px oklch(0.72 0.17 55 / 8%),
+      0 24px 48px -24px oklch(0 0 0 / 65%);
+    padding: 2rem 1.75rem;
+  }
+
+  .login-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .login-brand__logo {
+    height: 3.5rem;
+    width: auto;
+    max-width: 11rem;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+  }
+
+  .login-brand__subtitle {
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .login-field label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .login-input {
+    height: 2.75rem;
+    border-color: oklch(1 0 0 / 12%);
+    background: oklch(0.16 0.012 255 / 90%);
+    font-size: 0.9375rem;
+  }
+
+  .login-input:focus-visible {
+    border-color: oklch(0.72 0.17 55 / 35%);
+    box-shadow: 0 0 0 1px oklch(0.72 0.17 55 / 25%);
+  }
+
+  .login-error {
+    font-size: 0.8125rem;
+    color: var(--destructive);
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius);
+    background: oklch(0.62 0.22 25 / 10%);
+    border: 1px solid oklch(0.62 0.22 25 / 20%);
+  }
+
+  .login-submit {
+    margin-top: 0.25rem;
+    height: 2.75rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    background: var(--brand);
+    color: var(--brand-foreground);
+  }
+
+  .login-submit:hover:not(:disabled) {
+    background: oklch(0.68 0.17 55);
+  }
+
+  .primewave-footer {
+    flex: none;
+    padding:
+      0.875rem
+      max(1rem, env(safe-area-inset-right, 0))
+      max(1rem, env(safe-area-inset-bottom, 0))
+      max(1rem, env(safe-area-inset-left, 0));
+    border-top: 1px solid oklch(1 0 0 / 6%);
+    background: linear-gradient(180deg, transparent, oklch(0 0 0 / 12%));
+  }
+
+  .primewave-footer__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .primewave-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+  }
+
+  .primewave-footer__label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(1 0 0 / 38%);
+  }
+
+  .primewave-footer__brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .primewave-footer__name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: oklch(0.97 0.005 250 / 92%);
+  }
+
+  .primewave-footer__prime {
+    font-weight: 800;
+    color: var(--foreground);
+  }
+
+  .primewave-footer__tagline {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: oklch(1 0 0 / 42%);
+  }
+
+  .primewave-footer__support {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+  }
+
+  .primewave-footer__support-label {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: oklch(1 0 0 / 32%);
+  }
+
+  .primewave-footer__email {
+    color: oklch(0.72 0.16 240 / 90%);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+
+  .primewave-footer__email:hover {
+    color: oklch(0.78 0.16 240);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .dashboard-header {
